@@ -1,1 +1,13 @@
 // app global css in SCSS form
+@font-face {
+  font-family: museo;
+  src: url(./fonts/MuseoModerno-VariableFont_wght.ttf);
+}
+
+.museo {
+  font-family: "museo";
+}
+
+.desarrollo {
+  list-style: none;
+}
