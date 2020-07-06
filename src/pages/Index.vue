@@ -7,7 +7,9 @@
         </div>
         <div class="row">
           <h2>
-            Soy <span class="text-pink"><strong>Felipe</strong></span
+            Soy
+            <span class="text-secondary museo">
+              <router-link to="/sobremi">Felipe</router-link> </span
             >, desarrollador web.
           </h2>
         </div>
@@ -21,3 +23,9 @@ export default {
   name: "PageIndex"
 };
 </script>
+
+<style lang="scss" scoped>
+a {
+  color: $secondary;
+}
+</style>

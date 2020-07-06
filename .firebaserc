@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "digivoro-d681a"
+  },
+  "targets": {
+    "digivoro-d681a": {
+      "hosting": {
+        "digivoro.com": [
+          "digivoro"
+        ],
+        "digivorocl": [
+          "digivoro-d681a"
+        ]
+      }
+    }
+  }
+}

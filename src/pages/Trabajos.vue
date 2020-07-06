@@ -6,21 +6,27 @@
     </div>
     <div class="row items-start q-gutter-lg q-my-lg">
       <q-card
-        class="my-card"
+        :class="`my-card bg-primary`"
         bordered
+        dark
         v-for="(trabajo, index) in trabajos"
         :key="index"
       >
         <q-card-section horizontal>
           <q-card-section vertical>
-            <div class="text-h6">{{ trabajo.titulo }}</div>
+            <div class="text-h5">{{ trabajo.titulo }}</div>
             <div class="text-subtitle2">{{ trabajo.tipo }}</div>
+            <div class="q-mt-lg">
+              <q-chip
+                v-for="tecnologia in trabajo.tecnologias"
+                :key="tecnologia"
+                color="dark"
+                dark
+              >
+                {{ tecnologia }}
+              </q-chip>
+            </div>
           </q-card-section>
-          <!-- <q-parallax :height="300" :speed="1">
-            <template v-slot:media>
-              <q-img :src="trabajo.imagen" />
-            </template>
-          </q-parallax> -->
 
           <q-scroll-area
             dark
@@ -33,18 +39,18 @@
           </q-scroll-area>
 
           <q-card-actions vertical class="justify-around q-px-md">
-            <q-btn flat round color="red" icon="favorite">
+            <q-btn flat round color="secondary" icon="favorite">
               <q-tooltip
-                content-class="bg-red"
+                content-class="bg-secondary"
                 transition-show="rotate"
                 transition-hide="rotate"
               >
                 Me gusta
               </q-tooltip>
             </q-btn>
-            <q-btn flat round color="primary" icon="share">
+            <q-btn flat round color="seashell" icon="share">
               <q-tooltip
-                content-class="bg-primary"
+                content-class="bg-seashell"
                 transition-show="rotate"
                 transition-hide="rotate"
               >
@@ -54,21 +60,41 @@
             <q-btn
               flat
               round
-              color="purple"
+              color="seashell"
               icon="link"
               type="a"
               :href="trabajo.enlace"
               target="_blank"
             >
               <q-tooltip
-                content-class="bg-purple"
+                content-class="bg-seashell"
                 transition-show="rotate"
                 transition-hide="rotate"
               >
-                Ir al sitio
+                Visitar sitio
               </q-tooltip>
             </q-btn>
+            <q-btn
+              color="seashell"
+              round
+              class="bg-secondary"
+              :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
+              @click="expanded = !expanded"
+            />
           </q-card-actions>
+        </q-card-section>
+
+        <q-card-section horizontal>
+          <q-slide-transition>
+            <div v-show="expanded">
+              <q-card-section class="text-h6">
+                Sobre este proyecto
+              </q-card-section>
+              <q-card-section class="text-subitle2">
+                {{ trabajo.descripcion }}
+              </q-card-section>
+            </div>
+          </q-slide-transition>
         </q-card-section>
       </q-card>
     </div>
@@ -83,6 +109,7 @@ export default {
   computed: mapState(["trabajos"]),
   data: function() {
     return {
+      expanded: false,
       thumbStyle: {
         right: "4px",
         borderRadius: "5px",

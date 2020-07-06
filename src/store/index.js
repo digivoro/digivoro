@@ -5,48 +5,81 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-/*
- * If not building with SSR mode, you can
- * directly export the Store instantiation;
- *
- * The function below can be async too; either use
- * async/await or return a Promise which resolves
- * with the Store instance.
- */
-
 export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
     state: {
+      formularioContacto: {
+        nombre: "",
+        email: "",
+        telefono: "",
+        asunto: "",
+        llamarPorTelefono: false,
+        mensaje: ""
+      },
       trabajos: [
         {
           id: 0,
-          titulo: "Pokedex",
-          tipo: "Aplicación",
+          titulo: "Kard",
+          tipo: "Aplicación web",
           descripcion:
-            "Aplicación que recupera datos de una API. Permite al usuario buscar pokemones por ID o nombre, y muestra su información más relevante. ",
+            'Aplicación que entrega herramientas diseñadas para jugadores del juego de cartas intercambiables "Mitos y Leyendas". Tiene capacidad de filtrar cartas por texto y por categorías. Se pueden crear y guardar mazos de cartas, así como compartirlos de manera pública y privada. La herramienta entrega información relevante al jugador de manera gráfica. Para este proyecto, tuve que normalizar la base de datos con scripts de Node.js.',
           fecha: "2020",
-          tecnologias: ["API"],
+          tecnologias: ["Vue", "Vuex", "Firebase", "Quasar", "Node.js"],
+          enlace: "https://github.com/nKardia/kard",
+          enlaces: {
+            web: "kard-37937.web.app",
+            github: "https://github.com/nKardia/kard"
+          },
+          imagen: "../statics/images/kard.png",
+          expandido: false
+        },
+        {
+          id: 1,
+          titulo: "Otto Klaus",
+          tipo: "Aplicación web",
+          descripcion:
+            "Maqueta de sistema de inventario online. Permite ver artículos en inventario desde una base de datos real alojada en Firebase, así como crear, editar y eliminarlos.",
+          fecha: "2020",
+          tecnologias: ["Vue", "Vuex", "Firebase", "Quasar"],
+          enlace: "https://ottoklaus.web.app/",
+          enlaces: {
+            web: null,
+            github: "https://github.com/nKardia/otto-klaus"
+          },
+          imagen: "../statics/images/ottoklaus.png",
+          expandido: false
+        },
+        {
+          id: 2,
+          titulo: "Pokedex",
+          tipo: "Aplicación web",
+          descripcion:
+            "Aplicación que consume datos de una API. Permite al usuario buscar pokemones por ID o nombre, y muestra su información más relevante de manera gráfica.",
+          fecha: "2020",
+          tecnologias: ["API", "Vanilla JS", "Materialize CSS"],
           enlace: "https://github.com/nKardia/pokedex",
           enlaces: {
             web: null,
             github: "https://github.com/nKardia/pokedex"
           },
-          imagen: "../statics/images/pokedex.png"
+          imagen: "../statics/images/pokedex.png",
+          expandido: false
         },
         {
-          id: 1,
+          id: 3,
           titulo: "Ferretería Vidal",
           tipo: "E-Commerce",
           descripcion:
             "E-commerce montado en WordPress + WooCommerce para Ferretería Vidal",
           fecha: "2020",
-          tecnologias: ["Wordpress", "Woocommerce"],
+          tecnologias: ["Wordpress", "Woocommerce", "CSS"],
           enlace: "https://www.ferreteriavidal.cl",
           enlaces: {
             web: "https://www.ferreteriavidal.cl",
             github: null
           },
-          imagen: "../statics/images/ferreteriavidal.png"
+          imagen: "../statics/images/ferreteriavidal.png",
+          expandido: false
         }
       ],
       desarrollos: [
@@ -139,7 +172,11 @@ export default function(/* { ssrContext } */) {
         }
       ]
     },
-    mutations: {},
+    mutations: {
+      SET_FORMULARIO_CONTACTO(state, datosFormulario) {
+        state.formularioContacto = datosFormulario;
+      }
+    },
     actions: {},
     getters: {},
 
