@@ -3,7 +3,11 @@
     <q-header reveal elevated class="bg-dark text-white">
       <q-toolbar class="q-py-sm">
         <q-toolbar-title class="flex  item-end">
-          <q-img src="statics/images/logo_bg-dark.png" width="80px" />
+          <q-img
+            class="q-ml-lg q-my-sm"
+            src="statics/images/logo_bg-dark.png"
+            width="80px"
+          />
           <!-- <p class="museo">digivoro</p> -->
         </q-toolbar-title>
 
@@ -24,6 +28,7 @@
             unchecked-icon="wb_sunny"
             :color="color"
             keep-color
+            size="lg"
           />
         </div>
       </q-toolbar>

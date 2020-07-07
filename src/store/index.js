@@ -1,5 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import Axios from "axios";
+import { Notify } from "quasar";
+import { fireDb } from "../boot/firebase";
 
 // import example from './module-example'
 
@@ -12,7 +15,6 @@ export default function(/* { ssrContext } */) {
         nombre: "",
         email: "",
         telefono: "",
-        asunto: "",
         llamarPorTelefono: false,
         mensaje: ""
       },
@@ -86,9 +88,9 @@ export default function(/* { ssrContext } */) {
         {
           title: "Desarrollo web front-end con Vue.js",
           subtitle: "2020",
-          color: "teal",
+          color: "black",
           icon: "school",
-          side: "left",
+          side: "right",
           body: `
             <p>
               Curso "Desarrollo Web Front-End con Vue.js" en academia Desafío Latam.
@@ -101,55 +103,49 @@ export default function(/* { ssrContext } */) {
         {
           title: "Desarrollador freelance",
           subtitle: "2019 - Actualidad",
-          color: "blue",
+          color: "pink",
           icon: "business_center",
-          side: "right",
+          side: "left",
           body: `
             <p>
-              Proyectos como desarrollador freelance:
-              <ul class="desarrollo">
-                <li>ferreteriavidal.cl</li>
-              </ul> 
+              Proyectos como desarrollador web independiente
             </p>
           `
         },
         {
           title: "Analista desarrollador de software",
           subtitle: "2019",
-          color: "teal",
+          color: "black",
           icon: "school",
-          side: "left",
+          side: "right",
           body: `
             <p>
               Curso "Analista desarrollador de software" en Instituto de Capacitación San Jorge
             </p>
             <p>
-              <strong>Aprendí:</strong> 
+              <strong>Aprendí: </strong> Modelado con notación UML, Java, Diseño de BBDD relacionales
             </p>
           `
         },
         {
-          title: "Python for everybody",
+          title: "Especialización en programación con Python",
           subtitle: "2018-2019",
-          color: "teal",
+          color: "black",
           icon: "school",
           side: "left",
           body: `
             <p>
-              Especialización en programación con Python. Michigan University (vía Coursera.org).
-              <ul class="desarrollo">
-                <li><a href="https://coursera.org/share/8983f66b9f89eafd40fb1136890a2e62" target="_blank">Programming for Everybody (Getting Started with Python)</a></li>
-                <li><a href="https://coursera.org/share/d7a0b9e725795d36491395387f084a96" target="_blank">Python Data Structures</a></li>
-                <li><a href="https://coursera.org/share/40b049fce88b9dc165855a08a8110af1" target="_blank">Using Python to Access Web Data</a></li>
-                <li><a href="https://coursera.org/share/13b363577a99ef420000b71fb632a25c" target="_blank">Using Databases with Python</a></li>
-              </ul> 
+              "Python for everybody", Michigan University (vía Coursera.org).
+            </p>
+            <p>
+              <strong>Aprendí: </strong> Estructuras de datos, acceder a data en la web y bases de datos con python
             </p>
           `
         },
         {
           title: "Analista de datos",
           subtitle: "2017-2020",
-          color: "blue",
+          color: "pink",
           icon: "business_center",
           side: "right",
           body: `
@@ -162,7 +158,7 @@ export default function(/* { ssrContext } */) {
           title: "Ingeniero de ejecución industrial",
           subtitle: "2017",
           color: "orange",
-          icon: "star",
+          icon: "school",
           side: "left",
           body: `
             <p>
@@ -172,12 +168,55 @@ export default function(/* { ssrContext } */) {
         }
       ]
     },
+
     mutations: {
       SET_FORMULARIO_CONTACTO(state, datosFormulario) {
         state.formularioContacto = datosFormulario;
+      },
+
+      SET_INPUT_CONTACTO(state, input) {
+        let campo = Object.keys(input)[0];
+        state.formularioContacto = {
+          ...state.formularioContacto,
+          [campo]: input[campo]
+        };
       }
     },
-    actions: {},
+
+    actions: {
+      async enviarFormulario({ commit, state }) {
+        try {
+          // SEND EMAIL
+          // let destinatario = state.formularioContacto.email;
+          // let response = Axios.get(
+          //   `https://us-central1-digivoro-d681a.cloudfunctions.net/sendMail?dest=${destinatario}`
+          // );
+          // console.log(response);
+
+          // Guardar en Firestore
+          let firestoreResponse = fireDb
+            .collection("mensajes")
+            .add(state.formularioContacto);
+          console.log(firestoreResponse);
+
+          // Notificar exito
+          Notify.create({
+            type: "positive",
+            icon: "mark_email_read",
+            message: "Recibí tu mensaje exitosamente!"
+          });
+        } catch (error) {
+          console.error(error);
+          Notify.create({
+            type: "negative",
+            icon: "error",
+            color: "secondary",
+            message: "Ups! Ocurrió un problema. Por favor intentalo de nuevo."
+          });
+        }
+      }
+    },
+
     getters: {},
 
     // enable strict mode (adds overhead!)

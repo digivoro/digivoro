@@ -1,20 +1,14 @@
 <template>
   <div>
-    <div class="row">
       <h1>Sobre mí.</h1>
+        <!-- Intro -->
+        <p class="text-about">Soy <span class="text-bold">Felipe Castro Richter</span>. Me formé como ingeniero industrial en la Universidad de Santiago de Chile, pero mis intereses me han acercado cada vez más al área del desarrollo de software, específicamente aquellas tecnologías que dan vida al internet.</p>
+        <p class="text-about">Actualmente me encuentro trabajando en proyectos de manera independiente como <span class="text-bold">desarrollador web Front-End</span>.</p>
       <q-separator class="q-mb-lg" />
-      <div class="row">
-        <div class="col-12 col-md-6">
-          <q-card>
-            <q-card-section title>
-              Hola
-            </q-card-section>
-          </q-card>
-        </div>
-        <div class="col-12 col-md-6">
+        <!-- Timeline -->
           <q-timeline :layout="layout" color="secondary">
             <q-timeline-entry heading>
-              Mi recorrido
+              Mi recorrido como desarrollador
             </q-timeline-entry>
             <q-timeline-entry
               v-for="({ title, subtitle, color, icon, side, body },
@@ -29,9 +23,7 @@
               <span v-html="body"></span>
             </q-timeline-entry>
           </q-timeline>
-        </div>
-      </div>
-    </div>
+
   </div>
 </template>
 
@@ -52,4 +44,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.text-about {
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 3rem;
+}
+</style>

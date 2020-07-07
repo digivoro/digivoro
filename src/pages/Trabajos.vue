@@ -15,6 +15,7 @@
         <q-card-section horizontal>
           <q-card-section vertical>
             <div class="text-h5">{{ trabajo.titulo }}</div>
+            <q-separator dark class="q-mb-lg"></q-separator>
             <div class="text-subtitle2">{{ trabajo.tipo }}</div>
             <div class="q-mt-lg">
               <q-chip
@@ -39,7 +40,8 @@
           </q-scroll-area>
 
           <q-card-actions vertical class="justify-around q-px-md">
-            <q-btn flat round color="secondary" icon="favorite">
+            <!-- Like button -->
+            <!-- <q-btn flat round color="secondary" icon="favorite">
               <q-tooltip
                 content-class="bg-secondary"
                 transition-show="rotate"
@@ -47,7 +49,9 @@
               >
                 Me gusta
               </q-tooltip>
-            </q-btn>
+            </q-btn> -->
+
+            <!-- Share button -->
             <q-btn flat round color="seashell" icon="share">
               <q-tooltip
                 content-class="bg-seashell"
@@ -57,6 +61,8 @@
                 Compartir
               </q-tooltip>
             </q-btn>
+
+            <!-- Link button -->
             <q-btn
               flat
               round
@@ -74,19 +80,31 @@
                 Visitar sitio
               </q-tooltip>
             </q-btn>
+
+            <!-- More button -->
             <q-btn
               color="seashell"
               round
               class="bg-secondary"
-              :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-              @click="expanded = !expanded"
-            />
+              :icon="
+                trabajo.expandido ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
+              "
+              @click="trabajo.expandido = !trabajo.expandido"
+            >
+              <q-tooltip
+                content-class="bg-seashell"
+                transition-show="rotate"
+                transition-hide="rotate"
+              >
+                <span>{{ trabajo.expandido ? "Ver menos" : "Ver más" }}</span>
+              </q-tooltip>
+            </q-btn>
           </q-card-actions>
         </q-card-section>
 
         <q-card-section horizontal>
           <q-slide-transition>
-            <div v-show="expanded">
+            <div v-show="trabajo.expandido">
               <q-card-section class="text-h6">
                 Sobre este proyecto
               </q-card-section>
